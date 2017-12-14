@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangram.runtime.core.policy.dao.PolicyMapper">
+    <resultMap id="BaseResultMap" type="com.github.tangram.runtime.core.policy.bean.Policy">
+        <id column="policy_id" property="policyId" jdbcType="VARCHAR"/>
+        <result column="product_metadata_id" property="productMetadataId" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="proposal_id" property="proposalId" jdbcType="VARCHAR"/>
+        <result column="trade_id" property="tradeId" jdbcType="VARCHAR"/>
+        <result column="premium" property="premium" jdbcType="DECIMAL"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="accepted_time" property="acceptedTime" jdbcType="TIMESTAMP"/>
+        <result column="started_time" property="startedTime" jdbcType="TIMESTAMP"/>
+        <result column="ended_time" property="endedTime" jdbcType="TIMESTAMP"/>
+        <result column="pay_type" property="payType" jdbcType="VARCHAR"/>
+        <result column="policy_type" property="policyType" jdbcType="VARCHAR"/>
+        <result column="channel_id" property="channelId" jdbcType="VARCHAR"/>
+        <result column="openid_type" property="openidType" jdbcType="VARCHAR"/>
+        <result column="openid" property="openid" jdbcType="VARCHAR"/>
+        <result column="refer_id" property="referId" jdbcType="VARCHAR"/>
+        <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
+        <result column="dealer_id" property="dealerId" jdbcType="VARCHAR"/>
+        <result column="distributor_id" property="distributorId" jdbcType="VARCHAR"/>
+        <result column="promoter_id" property="promoterId" jdbcType="VARCHAR"/>
+        <result column="coop_proposal_id" property="coopProposalId" jdbcType="VARCHAR"/>
+        <result column="coop_proposal_id_seq" property="coopProposalIdSeq" jdbcType="VARCHAR"/>
+        <result column="handler_server" property="handlerServer" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="FeeResultMap" type="com.github.tangram.runtime.core.fee.bean.FeeInfo">
+        <id column="policy_id" property="policyId" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="premium" property="premium" jdbcType="DECIMAL"/>
+        <result column="started_time" property="startedTime" jdbcType="TIMESTAMP"/>
+        <result column="rate" property="rate" jdbcType="DECIMAL"/>
+        <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
+        <result column="job_id" property="jobId" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="fee_strategy_detail_id" property="feeStrategyDetailId" jdbcType="VARCHAR"/>
+        <result column="fee_strategy_collect_type" property="feeStrategyCollectType" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.github.tangram.runtime.core.policy.bean.PolicyWithBLOBs"
+               extends="BaseResultMap">
+        <result column="policy_content" property="policyContent" jdbcType="LONGVARCHAR"/>
+        <result column="request_content" property="requestContent" jdbcType="LONGVARCHAR"/>
+        <result column="response_content" property="responseContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    policy_id, product_metadata_id, sku_id, proposal_id, trade_id, premium, amount, accepted_time, 
+    started_time, ended_time, pay_type, policy_type, channel_id, openid_type, openid, 
+    refer_id, agency_id, dealer_id, distributor_id, promoter_id, coop_proposal_id, coop_proposal_id_seq, 
+    handler_server, created_time, updated_time, remark
+  </sql>
+    <sql id="Blob_Column_List">
+    policy_content, request_content, response_content
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from policy
+        where policy_id = #{policyId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from policy
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.github.tangram.runtime.core.policy.bean.PolicyWithBLOBs">
+    insert into policy (policy_id, product_metadata_id, sku_id, 
+      proposal_id, trade_id, premium, 
+      amount, accepted_time, started_time, 
+      ended_time, pay_type, policy_type, 
+      channel_id, openid_type, openid, 
+      refer_id, agency_id, dealer_id, 
+      distributor_id, promoter_id, coop_proposal_id, 
+      coop_proposal_id_seq, handler_server, created_time, 
+      updated_time, remark, policy_content, 
+      request_content, response_content
+      )
+    values (#{policyId,jdbcType=VARCHAR}, #{productMetadataId,jdbcType=VARCHAR}, #{skuId,jdbcType=VARCHAR}, 
+      #{proposalId,jdbcType=VARCHAR}, #{tradeId,jdbcType=VARCHAR}, #{premium,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, #{acceptedTime,jdbcType=TIMESTAMP}, #{startedTime,jdbcType=TIMESTAMP}, 
+      #{endedTime,jdbcType=TIMESTAMP}, #{payType,jdbcType=VARCHAR}, #{policyType,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=VARCHAR}, #{openidType,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{referId,jdbcType=VARCHAR}, #{agencyId,jdbcType=VARCHAR}, #{dealerId,jdbcType=VARCHAR}, 
+      #{distributorId,jdbcType=VARCHAR}, #{promoterId,jdbcType=VARCHAR}, #{coopProposalId,jdbcType=VARCHAR}, 
+      #{coopProposalIdSeq,jdbcType=VARCHAR}, #{handlerServer,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{policyContent,jdbcType=LONGVARCHAR}, 
+      #{requestContent,jdbcType=LONGVARCHAR}, #{responseContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.github.tangram.runtime.core.policy.bean.PolicyWithBLOBs">
+        insert into policy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="policyId != null">
+                policy_id,
+            </if>
+            <if test="productMetadataId != null">
+                product_metadata_id,
+            </if>
+            <if test="skuId != null">
+                sku_id,
+            </if>
+            <if test="proposalId != null">
+                proposal_id,
+            </if>
+            <if test="tradeId != null">
+                trade_id,
+            </if>
+            <if test="premium != null">
+                premium,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="acceptedTime != null">
+                accepted_time,
+            </if>
+            <if test="startedTime != null">
+                started_time,
+            </if>
+            <if test="endedTime != null">
+                ended_time,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="policyType != null">
+                policy_type,
+            </if>
+            <if test="channelId != null">
+                channel_id,
+            </if>
+            <if test="openidType != null">
+                openid_type,
+            </if>
+            <if test="openid != null">
+                openid,
+            </if>
+            <if test="referId != null">
+                refer_id,
+            </if>
+            <if test="agencyId != null">
+                agency_id,
+            </if>
+            <if test="dealerId != null">
+                dealer_id,
+            </if>
+            <if test="distributorId != null">
+                distributor_id,
+            </if>
+            <if test="promoterId != null">
+                promoter_id,
+            </if>
+            <if test="coopProposalId != null">
+                coop_proposal_id,
+            </if>
+            <if test="coopProposalIdSeq != null">
+                coop_proposal_id_seq,
+            </if>
+            <if test="handlerServer != null">
+                handler_server,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="policyContent != null">
+                policy_content,
+            </if>
+            <if test="requestContent != null">
+                request_content,
+            </if>
+            <if test="responseContent != null">
+                response_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="policyId != null">
+                #{policyId,jdbcType=VARCHAR},
+            </if>
+            <if test="productMetadataId != null">
+                #{productMetadataId,jdbcType=VARCHAR},
+            </if>
+            <if test="skuId != null">
+                #{skuId,jdbcType=VARCHAR},
+            </if>
+            <if test="proposalId != null">
+                #{proposalId,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeId != null">
+                #{tradeId,jdbcType=VARCHAR},
+            </if>
+            <if test="premium != null">
+                #{premium,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="acceptedTime != null">
+                #{acceptedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startedTime != null">
+                #{startedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endedTime != null">
+                #{endedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="policyType != null">
+                #{policyType,jdbcType=VARCHAR},
+            </if>
+            <if test="channelId != null">
+                #{channelId,jdbcType=VARCHAR},
+            </if>
+            <if test="openidType != null">
+                #{openidType,jdbcType=VARCHAR},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="referId != null">
+                #{referId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyId != null">
+                #{agencyId,jdbcType=VARCHAR},
+            </if>
+            <if test="dealerId != null">
+                #{dealerId,jdbcType=VARCHAR},
+            </if>
+            <if test="distributorId != null">
+                #{distributorId,jdbcType=VARCHAR},
+            </if>
+            <if test="promoterId != null">
+                #{promoterId,jdbcType=VARCHAR},
+            </if>
+            <if test="coopProposalId != null">
+                #{coopProposalId,jdbcType=VARCHAR},
+            </if>
+            <if test="coopProposalIdSeq != null">
+                #{coopProposalIdSeq,jdbcType=VARCHAR},
+            </if>
+            <if test="handlerServer != null">
+                #{handlerServer,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="policyContent != null">
+                #{policyContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="requestContent != null">
+                #{requestContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="responseContent != null">
+                #{responseContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.github.tangram.runtime.core.policy.bean.PolicyWithBLOBs">
+        update policy
+        <set>
+            <if test="productMetadataId != null">
+                product_metadata_id = #{productMetadataId,jdbcType=VARCHAR},
+            </if>
+            <if test="skuId != null">
+                sku_id = #{skuId,jdbcType=VARCHAR},
+            </if>
+            <if test="proposalId != null">
+                proposal_id = #{proposalId,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeId != null">
+                trade_id = #{tradeId,jdbcType=VARCHAR},
+            </if>
+            <if test="premium != null">
+                premium = #{premium,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="acceptedTime != null">
+                accepted_time = #{acceptedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startedTime != null">
+                started_time = #{startedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endedTime != null">
+                ended_time = #{endedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="policyType != null">
+                policy_type = #{policyType,jdbcType=VARCHAR},
+            </if>
+            <if test="channelId != null">
+                channel_id = #{channelId,jdbcType=VARCHAR},
+            </if>
+            <if test="openidType != null">
+                openid_type = #{openidType,jdbcType=VARCHAR},
+            </if>
+            <if test="openid != null">
+                openid = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="referId != null">
+                refer_id = #{referId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyId != null">
+                agency_id = #{agencyId,jdbcType=VARCHAR},
+            </if>
+            <if test="dealerId != null">
+                dealer_id = #{dealerId,jdbcType=VARCHAR},
+            </if>
+            <if test="distributorId != null">
+                distributor_id = #{distributorId,jdbcType=VARCHAR},
+            </if>
+            <if test="promoterId != null">
+                promoter_id = #{promoterId,jdbcType=VARCHAR},
+            </if>
+            <if test="coopProposalId != null">
+                coop_proposal_id = #{coopProposalId,jdbcType=VARCHAR},
+            </if>
+            <if test="coopProposalIdSeq != null">
+                coop_proposal_id_seq = #{coopProposalIdSeq,jdbcType=VARCHAR},
+            </if>
+            <if test="handlerServer != null">
+                handler_server = #{handlerServer,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="policyContent != null">
+                policy_content = #{policyContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="requestContent != null">
+                request_content = #{requestContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="responseContent != null">
+                response_content = #{responseContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where policy_id = #{policyId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.github.tangram.runtime.core.policy.bean.PolicyWithBLOBs">
+    update policy
+    set product_metadata_id = #{productMetadataId,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=VARCHAR},
+      proposal_id = #{proposalId,jdbcType=VARCHAR},
+      trade_id = #{tradeId,jdbcType=VARCHAR},
+      premium = #{premium,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      accepted_time = #{acceptedTime,jdbcType=TIMESTAMP},
+      started_time = #{startedTime,jdbcType=TIMESTAMP},
+      ended_time = #{endedTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      policy_type = #{policyType,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=VARCHAR},
+      openid_type = #{openidType,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      refer_id = #{referId,jdbcType=VARCHAR},
+      agency_id = #{agencyId,jdbcType=VARCHAR},
+      dealer_id = #{dealerId,jdbcType=VARCHAR},
+      distributor_id = #{distributorId,jdbcType=VARCHAR},
+      promoter_id = #{promoterId,jdbcType=VARCHAR},
+      coop_proposal_id = #{coopProposalId,jdbcType=VARCHAR},
+      coop_proposal_id_seq = #{coopProposalIdSeq,jdbcType=VARCHAR},
+      handler_server = #{handlerServer,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      policy_content = #{policyContent,jdbcType=LONGVARCHAR},
+      request_content = #{requestContent,jdbcType=LONGVARCHAR},
+      response_content = #{responseContent,jdbcType=LONGVARCHAR}
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.github.tangram.runtime.core.policy.bean.Policy">
+    update policy
+    set product_metadata_id = #{productMetadataId,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=VARCHAR},
+      proposal_id = #{proposalId,jdbcType=VARCHAR},
+      trade_id = #{tradeId,jdbcType=VARCHAR},
+      premium = #{premium,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      accepted_time = #{acceptedTime,jdbcType=TIMESTAMP},
+      started_time = #{startedTime,jdbcType=TIMESTAMP},
+      ended_time = #{endedTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      policy_type = #{policyType,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=VARCHAR},
+      openid_type = #{openidType,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      refer_id = #{referId,jdbcType=VARCHAR},
+      agency_id = #{agencyId,jdbcType=VARCHAR},
+      dealer_id = #{dealerId,jdbcType=VARCHAR},
+      distributor_id = #{distributorId,jdbcType=VARCHAR},
+      promoter_id = #{promoterId,jdbcType=VARCHAR},
+      coop_proposal_id = #{coopProposalId,jdbcType=VARCHAR},
+      coop_proposal_id_seq = #{coopProposalIdSeq,jdbcType=VARCHAR},
+      handler_server = #{handlerServer,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where policy_id = #{policyId,jdbcType=VARCHAR}
+  </update>
+    <select id="getProviderFeeInfo" parameterType="java.lang.String" resultMap="FeeResultMap">
+    SELECT p.policy_id,p.sku_id,p.started_time, p.premium,fsd.rate,fsd.fee_strategy_detail_id,fs.fee_strategy_collect_type,ouj.org_user_job_id job_id
+    FROM policy p, product_sku sku, product_spu spu, spu_fee_strategy spufs,fee_strategy fs,fee_strategy_detail fsd,org_user_job ouj
+    WHERE p.sku_id = sku.sku_id AND sku.spu_id = spu.spu_id and spufs.spu_id =spu.spu_id
+    and fs.fee_strategy_id = fsd.fee_strategy_id and p.policy_id=#{policyId}
+    AND spu.insure_org_id = spufs.org_id  and ouj.org_id=spufs.org_id and ouj.job_id='7001'
+      and fs.fee_strategy_id = spufs.fee_strategy_id and fs.fee_strategy_object='provide';
+  </select>
+    <select id="getTenantFeeInfo" parameterType="java.lang.String" resultMap="FeeResultMap">
+     SELECT p.policy_id,p.sku_id,p.started_time, p.premium,fsd.rate,fsd.fee_strategy_detail_id,fs.fee_strategy_collect_type,ouj.org_user_job_id job_id
+  from policy p , sku_fee_strategy skufs,fee_strategy fs,fee_strategy_detail fsd,org_user_job ouj
+  where p.channel_id=skufs.org_id and p.sku_id = skufs.sku_id
+  and fs.fee_strategy_id = fsd.fee_strategy_id and p.policy_id=#{policyId}
+  and p.channel_id = ouj.org_id and ouj.job_id='8001'
+  and fs.fee_strategy_id = skufs.fee_strategy_id and fs.fee_strategy_object='tenant';
+  </select>
+    <select id="getAgencyFeeInfo" parameterType="java.lang.String" resultMap="FeeResultMap">
+    select pop.*,fsd.rate,fsd.fee_strategy_detail_id,fs.fee_strategy_collect_type from
+    (select policy_org.policy_id,policy_org.sku_id,policy_org.started_time,policy_org.agency_id, policy_org.premium,policy_org.job_id,orgin.org_id from
+    (select p.policy_id,p.sku_id,p.started_time, p.premium,p.agency_id,ouj.job_id,orgi.org_path agency_org_path
+    from policy p,org_user_job ouj,org_info orgi
+    where p.agency_id = ouj.org_user_job_id and p.policy_id=#{policyId}
+    and ouj.org_id = orgi.org_id  )  policy_org,
+    org_info orgin
+    where  policy_org.agency_org_path like CONCAT(orgin.org_path,'%') ) pop,
+      sku_fee_strategy skufs,fee_strategy fs,fee_strategy_detail fsd
+    where pop.sku_id = skufs.sku_id
+    and pop.org_id = skufs.org_id and pop.job_id = fsd.job_id
+    and fs.fee_strategy_id = skufs.fee_strategy_id and fs.fee_strategy_object='agency'
+    and fs.fee_strategy_id = fsd.fee_strategy_id
+  </select>
+</mapper>

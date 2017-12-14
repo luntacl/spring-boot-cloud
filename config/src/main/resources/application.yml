@@ -1,0 +1,37 @@
+server:
+  port: 8888
+
+eureka:
+  instance:
+    hostname: registry
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+  client:
+    service-url:
+      defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka/
+
+
+
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+#        git:
+#          uri: https://github.com/zhangxd1989/spring-boot-cloud
+#          search-paths: config-repo
+        native:
+          search-locations: D:/workspace/spring-boot-cloud-master/config-repo
+  rabbitmq:
+    host: 10.129.2.113
+    port: 5672
+    username: mqAdmin
+    password: mq59949936
+
+security:
+  user:
+    name: user
+    password: ${CONFIG_SERVER_PASSWORD:password}

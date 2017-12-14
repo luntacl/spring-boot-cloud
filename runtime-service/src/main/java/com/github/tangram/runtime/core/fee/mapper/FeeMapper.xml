@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangram.runtime.core.fee.dao.FeeMapper" >
+  <resultMap id="BaseResultMap" type="com.github.tangram.runtime.core.fee.bean.Fee" >
+    <id column="fee_id" property="feeId" jdbcType="VARCHAR" />
+    <result column="org_user_job_id" property="orgUserJobId" jdbcType="VARCHAR" />
+    <result column="fee_strategy_detail_id" property="feeStrategyDetailId" jdbcType="VARCHAR" />
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR" />
+    <result column="policy_id" property="policyId" jdbcType="VARCHAR" />
+    <result column="premium" property="premium" jdbcType="DECIMAL" />
+    <result column="fee_type" property="feeType" jdbcType="VARCHAR" />
+    <result column="fee_money" property="feeMoney" jdbcType="DECIMAL" />
+    <result column="fee_strategy_collect_type" property="feeStrategyCollectType" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="earliest_settlement_time" property="earliestSettlementTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="handler_server" property="handlerServer" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="policy_status" property="policyStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fee_id, org_user_job_id, fee_strategy_detail_id, sku_id, policy_id, premium, fee_type, 
+    fee_money, fee_strategy_collect_type, rate, earliest_settlement_time, remark, client_ip, 
+    handler_server, created_time, updated_time, policy_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fee
+    where fee_id = #{feeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fee
+    where fee_id = #{feeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.github.tangram.runtime.core.fee.bean.Fee" >
+    insert into fee (fee_id, org_user_job_id, fee_strategy_detail_id, 
+      sku_id, policy_id, premium, 
+      fee_type, fee_money, fee_strategy_collect_type, 
+      rate, earliest_settlement_time, remark, 
+      client_ip, handler_server, created_time, 
+      updated_time, policy_status)
+    values (#{feeId,jdbcType=VARCHAR}, #{orgUserJobId,jdbcType=VARCHAR}, #{feeStrategyDetailId,jdbcType=VARCHAR}, 
+      #{skuId,jdbcType=VARCHAR}, #{policyId,jdbcType=VARCHAR}, #{premium,jdbcType=DECIMAL}, 
+      #{feeType,jdbcType=VARCHAR}, #{feeMoney,jdbcType=DECIMAL}, #{feeStrategyCollectType,jdbcType=VARCHAR}, 
+      #{rate,jdbcType=DECIMAL}, #{earliestSettlementTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{clientIp,jdbcType=VARCHAR}, #{handlerServer,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{policyStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.tangram.runtime.core.fee.bean.Fee" >
+    insert into fee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feeId != null" >
+        fee_id,
+      </if>
+      <if test="orgUserJobId != null" >
+        org_user_job_id,
+      </if>
+      <if test="feeStrategyDetailId != null" >
+        fee_strategy_detail_id,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="policyId != null" >
+        policy_id,
+      </if>
+      <if test="premium != null" >
+        premium,
+      </if>
+      <if test="feeType != null" >
+        fee_type,
+      </if>
+      <if test="feeMoney != null" >
+        fee_money,
+      </if>
+      <if test="feeStrategyCollectType != null" >
+        fee_strategy_collect_type,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="earliestSettlementTime != null" >
+        earliest_settlement_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="handlerServer != null" >
+        handler_server,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="policyStatus != null" >
+        policy_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feeId != null" >
+        #{feeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgUserJobId != null" >
+        #{orgUserJobId,jdbcType=VARCHAR},
+      </if>
+      <if test="feeStrategyDetailId != null" >
+        #{feeStrategyDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="policyId != null" >
+        #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="premium != null" >
+        #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="feeType != null" >
+        #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeMoney != null" >
+        #{feeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="feeStrategyCollectType != null" >
+        #{feeStrategyCollectType,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="earliestSettlementTime != null" >
+        #{earliestSettlementTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerServer != null" >
+        #{handlerServer,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="policyStatus != null" >
+        #{policyStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.tangram.runtime.core.fee.bean.Fee" >
+    update fee
+    <set >
+      <if test="orgUserJobId != null" >
+        org_user_job_id = #{orgUserJobId,jdbcType=VARCHAR},
+      </if>
+      <if test="feeStrategyDetailId != null" >
+        fee_strategy_detail_id = #{feeStrategyDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="policyId != null" >
+        policy_id = #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="premium != null" >
+        premium = #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="feeType != null" >
+        fee_type = #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeMoney != null" >
+        fee_money = #{feeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="feeStrategyCollectType != null" >
+        fee_strategy_collect_type = #{feeStrategyCollectType,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="earliestSettlementTime != null" >
+        earliest_settlement_time = #{earliestSettlementTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerServer != null" >
+        handler_server = #{handlerServer,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="policyStatus != null" >
+        policy_status = #{policyStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fee_id = #{feeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.tangram.runtime.core.fee.bean.Fee" >
+    update fee
+    set org_user_job_id = #{orgUserJobId,jdbcType=VARCHAR},
+      fee_strategy_detail_id = #{feeStrategyDetailId,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=VARCHAR},
+      policy_id = #{policyId,jdbcType=VARCHAR},
+      premium = #{premium,jdbcType=DECIMAL},
+      fee_type = #{feeType,jdbcType=VARCHAR},
+      fee_money = #{feeMoney,jdbcType=DECIMAL},
+      fee_strategy_collect_type = #{feeStrategyCollectType,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=DECIMAL},
+      earliest_settlement_time = #{earliestSettlementTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      handler_server = #{handlerServer,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      policy_status = #{policyStatus,jdbcType=VARCHAR}
+    where fee_id = #{feeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

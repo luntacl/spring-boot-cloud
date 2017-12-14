@@ -1,0 +1,53 @@
+server:
+  port: 8083
+
+name: zhangxd
+
+eureka:
+  instance:
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+
+spring:
+  datasource:
+    name: test
+    url: jdbc:mysql://10.129.2.151:3306/tangram?useUnicode=true&useSSL=true&characterEncoding=UTF8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  redis:
+    database: 1
+    host: 10.129.2.112
+    password: By19OK02n
+    port: 8992
+    pool:
+      max-active: 20
+mybatis:
+  typeAliasesPackage: com.github.tangram.fee.core.*.bean
+  mapperLocations: classpath:com/github/tangram/fee/core/*/mapper/*.xml
+security:
+  user:
+    name: user
+    password: password
+#  oauth2:
+#    client:
+#      clientId: svca-service
+#      clientSecret: ${security.user.password}
+#      accessTokenUri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/oauth/token
+#      grant-type: client_credentials
+#      scope: server
